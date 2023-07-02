@@ -3,9 +3,12 @@ import { getProducts, getOneProduct } from "../utils/api";
 
 import Price from "../components/Price";
 import DiscountBadge from "../components/DiscountBadge";
+import Paginate from "../components/Paginate";
 
 const Home = () => {
   const [products, setProducts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage] = useState(12);
   useEffect(() => {
     const fetchData = async () => {
       const res = await getProducts();
@@ -14,10 +17,31 @@ const Home = () => {
     };
     fetchData().catch(console.error);
   }, []);
+
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = products.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
+  const lastPage = Math.ceil(products.length / productsPerPage);
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+  const previousPage = () => {
+    if (currentPage !== 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+  const nextPage = () => {
+    if (currentPage !== lastPage) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
   return (
     <div className="container">
       <div className="row mb-4 gy-4">
-        {products.map((p) => (
+        {currentProducts.map((p) => (
           <div className="col-sm-6 col-md-3 col-lg-3" key={p.link}>
             <a href={p.link} target="_blank" className="text-decoration-none">
               <div className="card p-1">
@@ -48,6 +72,13 @@ const Home = () => {
           </div>
         ))}
       </div>
+      <Paginate
+        paginate={paginate}
+        previousPage={previousPage}
+        nextPage={nextPage}
+        currentPage={currentPage}
+        lastPage={lastPage}
+      />
     </div>
   );
 };
