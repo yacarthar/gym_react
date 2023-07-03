@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { getProducts, getOneProduct } from "../utils/api";
 
 import ProductCard from "../components/ProductCard";
@@ -6,37 +6,38 @@ import Paginate from "../components/Paginate";
 const Home = () => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
-  const [searchInput, setSearchInput] = useState("");
+  const searchInput = useRef();
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(12);
   useEffect(() => {
     const fetchData = async () => {
       const res = await getProducts();
-      console.log(res.data);
       setProducts(res.data);
-      setFilteredProducts(res.data)
+      setFilteredProducts(res.data);
     };
     fetchData().catch(console.error);
   }, []);
   const searchHandler = (e) => {
     e.preventDefault();
-    console.log(searchInput);
+    console.log(searchInput.current.value);
     const temp = searchInput
-      ? products.filter((item) => item.title.includes(searchInput))
+      ? products.filter((item) =>
+          item.title.includes(searchInput.current.value)
+        )
       : products;
-    console.log(temp)
-    setFilteredProducts(temp)
-    console.log(filteredProducts);
+    setFilteredProducts(temp);
+    setCurrentPage(1);
   };
+  
+  console.log(filteredProducts);
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const onPageProducts = filteredProducts.slice(
     indexOfFirstProduct,
     indexOfLastProduct
   );
-  console.log(onPageProducts)
   const lastPage = Math.ceil(filteredProducts.length / productsPerPage);
-  console.log(lastPage);
+
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -53,15 +54,16 @@ const Home = () => {
   return (
     <div className="container">
       <div className="row mb-4">
-        <div className="col-md-6">Total Products: {filteredProducts.length}</div>
+        <div className="col-md-6">
+          Total Products: {filteredProducts.length}
+        </div>
         <div className="col-md-6">
           <form className="input-group" onSubmit={searchHandler}>
             <input
               type="text"
               className="form-control"
               placeholder="Search Product ..."
-              value={searchInput}
-              onChange={(e) => setSearchInput(e.target.value)}
+              ref={searchInput}
             />
             <button className="btn btn-primary" type="submit">
               Search

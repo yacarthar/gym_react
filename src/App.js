@@ -1,12 +1,18 @@
-import Home from './views/Home';
-import Navbar from './components/Navbar';
-import './App.css';
+import { Routes, Route} from "react-router-dom";
+
+import Home from "./views/Home";
+import Navbar from "./components/Navbar";
+import Product from "./views/Product";
+import "./App.css";
 
 function App() {
   return (
     <div className="App">
-      <Navbar/>
-      <Home/>
+      <Navbar />
+      <Routes>
+        <Route index element={<Home />} />
+        <Route path="p/:postId" element={<Product />} />
+      </Routes>
     </div>
   );
 }
