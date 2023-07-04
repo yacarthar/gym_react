@@ -1,12 +1,18 @@
 export const business_info = {
   name: "Gym Equipment",
+  company_name: "Công ty TNHH Thể Thao Gym Equiment",
+  license: "Số ĐKKD 01023456788 do Sở KHĐT TP. Hà Nội cấp ngày 20/07/2018",
   guaranty: [
     "Cam kết hàng chính hãng 100%.",
     "Xuất hóa đơn VAT chính Hãng.",
     "Vận chuyển lắp đặt tại nhà trên toàn quốc.",
     "Bảo hành, đổi trả hàng trong 15 ngày.",
   ],
-  contact: [
+  contact: {
+    hotline: "034.6666.8888",
+    email: "gym-equipment@gmail.com"
+  },
+  branch: [
     {
       id: 1,
       city: "Hà Nội",

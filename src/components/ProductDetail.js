@@ -118,16 +118,16 @@ const ProductDetail = ({ product }) => {
           </div>
           <div className="row border p-2">
             <h5 className="text-primary">Liên hệ</h5>
-            {business_info.contact.map((contact) => (
+            {business_info.branch.map((branch) => (
               <div>
                 <p className="my-1">
                   <i className="fa-solid fa-location-dot me-2"></i>
                   <b className="text-uppercase">
-                    chi nhánh tại {contact.city}:{" "}
+                    chi nhánh tại {branch.city}:{" "}
                   </b>
-                  <p className="my-0">{contact.street}</p>
+                  <p className="my-0">{branch.street}</p>
                 </p>
-                {contact.phoneNumber.map((num) => (
+                {branch.phoneNumber.map((num) => (
                   <p className="my-1">
                     <i className="fa-solid fa-phone me-1"></i>
                     <span className="text-primary">{num}</span>

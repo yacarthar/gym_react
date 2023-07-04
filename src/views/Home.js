@@ -52,7 +52,7 @@ const Home = () => {
     }
   };
   return (
-    <div className="container">
+    <div className="container pb-5">
       <div className="row mb-4">
         <div className="col-md-6">
           Total Products: {filteredProducts.length}
