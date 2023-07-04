@@ -1,4 +1,4 @@
-import { Routes, Route} from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import Home from "./views/Home";
 import Navbar from "./components/Navbar";
@@ -11,7 +11,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route index element={<Home />} />
-        <Route path="p/:postId" element={<Product />} />
+        <Route path="p/:productName" element={<Product />} />
       </Routes>
     </div>
   );

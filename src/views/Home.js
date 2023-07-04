@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { getProducts, getOneProduct } from "../utils/api";
+import { getProducts } from "../utils/api";
 
 import ProductCard from "../components/ProductCard";
 import Paginate from "../components/Paginate";

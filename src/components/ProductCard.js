@@ -1,11 +1,19 @@
-import React from "react";
+import urlJoin from "url-join";
+
 import Price from "../components/Price";
 import DiscountBadge from "../components/DiscountBadge";
 
 const ProductCard = ({ className, p }) => {
+  const appUrl = process.env.REACT_APP_URL;
+  const productLink = urlJoin(appUrl, "p", p.name);
   return (
     <div className={className}>
-      <a href={p.link} target="_blank" className="text-decoration-none">
+      <a
+        href={productLink}
+        className="text-decoration-none"
+        target="_blank"
+        rel="noreferrer"
+      >
         <div className="card p-1">
           <div className="bg-success-subtle">
             <div className="badge bg-danger my-2 ms-2">trả góp</div>
