@@ -76,7 +76,7 @@ const Home = () => {
           <ProductCard
             className="col-sm-6 col-md-5 col-lg-4 col-xl-3"
             p={product}
-            key={product.link}
+            key={product.id}
           />
         ))}
       </div>

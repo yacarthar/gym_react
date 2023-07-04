@@ -1,6 +1,7 @@
 import React from "react";
-
-const ProductDetail = () => {
+import { priceFormatter } from "../utils/formatter";
+import { business_info } from "../utils/constants";
+const ProductDetail = ({ product }) => {
   return (
     <div className="container">
       {/* product intro */}
@@ -8,27 +9,16 @@ const ProductDetail = () => {
         <div className="col-lg-5 col-sm-12">
           <div id="carouselExample" className="carousel slide mb-4">
             <div className="carousel-inner">
-              <div className="carousel-item active">
-                <img
-                  src="https://placehold.co/600x400/png"
-                  className="d-block w-100"
-                  alt="product-img"
-                />
-              </div>
-              <div className="carousel-item">
-                <img
-                  src="https://placehold.co/600x400/png"
-                  className="d-block w-100"
-                  alt="product-img"
-                />
-              </div>
-              <div className="carousel-item">
-                <img
-                  src="https://placehold.co/600x400/png"
-                  className="d-block w-100"
-                  alt="product-img"
-                />
-              </div>
+              {product.images.map((imgUrl) => (
+                <div className="carousel-item active bg-dark">
+                  <img
+                    src={imgUrl}
+                    className="d-block w-75 mx-auto object-fit-contain"
+                    alt="product-img"
+                    style={{ height: "60vh" }}
+                  />
+                </div>
+              ))}
             </div>
             <button
               className="carousel-control-prev"
@@ -57,17 +47,18 @@ const ProductDetail = () => {
           </div>
         </div>
         <div className="col-lg-4 col-sm-6">
-          <div className="h3 text-primary">Giàn tập đa năng 908S (JL-908S)</div>
+          <div className="h3 text-primary">{product.title}</div>
           <p id="desc">
-            Thương hiệu <span className="text-primary">Đang cập nhật</span> |
-            Tình trạng: <span className="text-primary">Còn hàng</span>
+            Thương hiệu <span className="text-primary">{product.brand}</span> |
+            Tình trạng:{" "}
+            <span className="text-primary">{product.availability}</span>
           </p>
           <div className="bg-danger-subtle text-center mb-2">
-            <span className="display-6 text-danger fw-medium">
-              17.650.000đ{" "}
+            <span className="display-6 text-danger fw-medium me-3">
+              {priceFormatter(product.special_price)}
             </span>
             <span>
-              <s>23.550.000đ</s>
+              <s>{priceFormatter(product.old_price)}</s>
             </span>
           </div>
           <div className="border border-warning bg-warning-subtle mb-2 p-2">
@@ -117,52 +108,33 @@ const ProductDetail = () => {
         </div>
         <div className="col-lg-3 col-sm-6">
           <div className="row border mb-3 p-2">
-            <h5 className="text-primary">Thể thao Đông Á</h5>
-            <p className="my-1">
-              <i className="fa-solid fa-square-check text-success me-2"></i>
-              Cam kết hàng chính hãng 100%.
-            </p>
-            <p className="my-1">
-              <i className="fa-solid fa-square-check text-success me-2"></i>
-              Xuất hóa đơn VAT chính Hãng.
-            </p>
-            <p className="my-1">
-              <i className="fa-solid fa-square-check text-success me-2"></i>
-              Vận chuyển lắp đặt tại nhà trên toàn quốc.
-            </p>
-            <p className="my-1">
-              <i className="fa-solid fa-square-check text-success me-2"></i>
-              Bảo hành, đổi trả hàng trong 15 ngày.
-            </p>
+            <h5 className="text-primary">{business_info.name}</h5>
+            {business_info.guaranty.map((line) => (
+              <p className="my-1">
+                <i className="fa-solid fa-square-check text-success me-2"></i>
+                {line}
+              </p>
+            ))}
           </div>
           <div className="row border p-2">
             <h5 className="text-primary">Liên hệ</h5>
-            <p className="my-1">
-              <i className="fa-solid fa-location-dot me-2"></i>
-              <b>CHI NHÁNH TẠI HÀ NỘI: </b>
-              31 Khuất Duy Tiến, Thanh Xuân, Hà Nội
-            </p>
-            <p className="my-1">
-              <i className="fa-solid fa-phone me-1"></i>
-              <span className="text-primary">034.6666.8888</span>
-            </p>
-            <p className="my-1">
-              <i className="fa-solid fa-phone me-1"></i>
-              <span className="text-primary">034.6666.9999</span>
-            </p>
-            <p className="my-1">
-              <i className="fa-solid fa-location-dot me-2"></i>
-              <b>CHI NHÁNH TẠI TP.HCM: </b>
-              10 đường Trần Trọng Cung, P. Tân Thuận Đông, Q7, TP.HCM
-            </p>
-            <p className="my-1">
-              <i className="fa-solid fa-phone me-1"></i>
-              <span className="text-primary">034.6666.8888</span>
-            </p>
-            <p className="my-1">
-              <i className="fa-solid fa-phone me-1"></i>
-              <span className="text-primary">034.6666.9999</span>
-            </p>
+            {business_info.contact.map((contact) => (
+              <div>
+                <p className="my-1">
+                  <i className="fa-solid fa-location-dot me-2"></i>
+                  <b className="text-uppercase">
+                    chi nhánh tại {contact.city}:{" "}
+                  </b>
+                  <p className="my-0">{contact.street}</p>
+                </p>
+                {contact.phoneNumber.map((num) => (
+                  <p className="my-1">
+                    <i className="fa-solid fa-phone me-1"></i>
+                    <span className="text-primary">{num}</span>
+                  </p>
+                ))}
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -170,13 +142,17 @@ const ProductDetail = () => {
       {/* product description */}
       <div className="row mb-4">
         <div className="col-md-9">
-          <div className="bg-primary p-2 mb-3">
-            <h4 className="text-white my-1">Mô tả sản phẩm</h4>
+          <div className="p-2 mb-3">
+            <h4 className="bg-primary text-white my-1 p-2">Mô tả sản phẩm</h4>
+            {product.desc.map(line => (
+              <p className="ps-2 py-1">{line}</p>
+            ))}
+            
           </div>
         </div>
         <div className="col-md-3">
-          <div className="bg-primary text-white p-2">
-            <h4 className="text-white my-1">Có thể bạn sẽ thích</h4>
+          <div className="text-white p-2">
+            <h4 className="bg-primary text-white my-1 p-2">Có thể bạn sẽ thích</h4>
           </div>
         </div>
       </div>
