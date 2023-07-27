@@ -1,6 +1,6 @@
 export const business_info = {
   name: "Gym Equipment",
-  company_name: "Công ty TNHH Thể Thao Gym Equiment",
+  company_name: "Công ty TNHH Thể Thao Gym Equipment",
   license: "Số ĐKKD 01023456788 do Sở KHĐT TP. Hà Nội cấp ngày 20/07/2018",
   guaranty: [
     "Cam kết hàng chính hãng 100%.",
