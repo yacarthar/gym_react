@@ -1,21 +1,16 @@
-
-
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 
-import "./index.css";
+import { Auth0ProviderWithNavigate } from "./Auth0ProviderWithNavigate";
+
 import App from "./App";
-import { myCtx } from "./ctx";
-
-
+import "./index.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <>
-    <BrowserRouter>
-      <myCtx.Provider value={{username: "andy", age: 20}}>
-        <App />
-      </myCtx.Provider>
-    </BrowserRouter>
-  </>
+  <BrowserRouter>
+    <Auth0ProviderWithNavigate>
+      <App />
+    </Auth0ProviderWithNavigate>
+  </BrowserRouter>
 );

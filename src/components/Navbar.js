@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const Navbar = () => {
-  const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
+  const { user, isAuthenticated, loginWithPopup, logout } = useAuth0();
   console.log(user);
   return (
     <nav className="navbar navbar-expand bg-body-tertiary mb-4">
@@ -21,7 +21,7 @@ const Navbar = () => {
           {!isAuthenticated && (
             <button
               className="btn btn-primary"
-              onClick={() => loginWithRedirect({})}
+              onClick={() => loginWithPopup({})}
             >
               Login
             </button>

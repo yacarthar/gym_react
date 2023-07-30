@@ -1,11 +1,9 @@
-import React, { useEffect, useRef, useState, useContext } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { getProducts } from "../utils/api";
 
-import { myCtx } from "../ctx";
 import ProductCard from "../components/ProductCard";
 import Paginate from "../components/Paginate";
 const Home = () => {
-  const ctx = useContext(myCtx)
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const searchInput = useRef();
@@ -31,7 +29,7 @@ const Home = () => {
     setCurrentPage(1);
   };
   
-  console.log(filteredProducts);
+  // console.log(filteredProducts);
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const onPageProducts = filteredProducts.slice(
@@ -58,7 +56,6 @@ const Home = () => {
       <div className="row mb-4">
         <div className="col-md-6">
           Total Products: {filteredProducts.length}
-          <span>{ctx.username}</span>
         </div>
         <div className="col-md-6">
           <form className="input-group" onSubmit={searchHandler}>
