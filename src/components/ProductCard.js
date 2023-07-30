@@ -1,18 +1,17 @@
-import urlJoin from "url-join";
+import { Link } from "react-router-dom";
 
 import Price from "../components/Price";
 import DiscountBadge from "../components/DiscountBadge";
 
 const ProductCard = ({ className, p }) => {
-  const appUrl = process.env.REACT_APP_URL;
-  const productLink = urlJoin(appUrl, "p", p.name);
   return (
     <div className={className}>
-      <a
-        href={productLink}
+      <Link
+        // href={productLink}
+        to={`p/${p.name}`}
         className="text-decoration-none"
-        target="_blank"
-        rel="noreferrer"
+        // target="_blank"
+        // rel="noreferrer"
       >
         <div className="card p-1">
           <div className="bg-success-subtle">
@@ -38,7 +37,7 @@ const ProductCard = ({ className, p }) => {
             />
           </div>
         </div>
-      </a>
+      </Link>
     </div>
   );
 };

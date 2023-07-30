@@ -1,7 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Navbar = () => {
+  const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
+  console.log(user);
   return (
     <nav className="navbar navbar-expand bg-body-tertiary mb-4">
       <div className="container">
@@ -14,36 +17,49 @@ const Navbar = () => {
           />
           Gym Equipment
         </Link>
+        <div className="ms-auto d-flex">
+          {!isAuthenticated && (
+            <button
+              className="btn btn-primary"
+              onClick={() => loginWithRedirect({})}
+            >
+              Login
+            </button>
+          )}
+          {isAuthenticated && (
+            <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+              <div className="navbar-nav ms-3">
+                <div className="dropdown">
+                  <a
+                    className="btn btn-sm dropdown-toggle"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    role="button"
+                  >
+                    <img
+                      src={user.picture}
+                      alt="user-picture"
+                      className="img-fluid rounded-circle w-25 me-2"
+                    />
+                    {user.name}
+                  </a>
+                  <ul className="dropdown-menu">
+                    <li>
+                      <Link className="dropdown-item" to="/profile">
+                        Profile
+                      </Link>
+                    </li>
+                    <li>
+                      <button className="dropdown-item" onClick={() => logout({})}>
+                        Logout
+                      </button>
+                    </li>
 
-        <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-          <div className="navbar-nav ms-auto">
-            <div className="dropdown">
-              <button
-                className="btn btn-primary dropdown-toggle"
-                type="button"
-                data-bs-toggle="dropdown"
-              >
-                English
-              </button>
-              <ul className="dropdown-menu">
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Chinese
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Espanol
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Francais
-                  </a>
-                </li>
-              </ul>
+                  </ul>
+                </div>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </nav>

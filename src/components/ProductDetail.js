@@ -10,7 +10,10 @@ const ProductDetail = ({ product }) => {
           <div id="carouselExample" className="carousel slide mb-4">
             <div className="carousel-inner">
               {product.images.map((imgUrl) => (
-                <div className="carousel-item active bg-dark">
+                <div
+                  className="carousel-item active bg-dark"
+                  key={product.images.indexOf(imgUrl)}
+                >
                   <img
                     src={imgUrl}
                     className="d-block w-75 mx-auto object-fit-contain"
@@ -110,7 +113,7 @@ const ProductDetail = ({ product }) => {
           <div className="row border mb-3 p-2">
             <h5 className="text-primary">{business_info.name}</h5>
             {business_info.guaranty.map((line) => (
-              <p className="my-1">
+              <p className="my-1" key={business_info.guaranty.indexOf(line)}>
                 <i className="fa-solid fa-square-check text-success me-2"></i>
                 {line}
               </p>
@@ -119,16 +122,16 @@ const ProductDetail = ({ product }) => {
           <div className="row border p-2">
             <h5 className="text-primary">Liên hệ</h5>
             {business_info.branch.map((branch) => (
-              <div>
-                <p className="my-1">
+              <div key={branch.id}>
+                <div className="my-1">
                   <i className="fa-solid fa-location-dot me-2"></i>
                   <b className="text-uppercase">
                     chi nhánh tại {branch.city}:{" "}
                   </b>
                   <p className="my-0">{branch.street}</p>
-                </p>
+                </div>
                 {branch.phoneNumber.map((num) => (
-                  <p className="my-1">
+                  <p className="my-1" key={branch.phoneNumber.indexOf(num)}>
                     <i className="fa-solid fa-phone me-1"></i>
                     <span className="text-primary">{num}</span>
                   </p>
@@ -144,15 +147,18 @@ const ProductDetail = ({ product }) => {
         <div className="col-md-9">
           <div className="p-2 mb-3">
             <h4 className="bg-primary text-white my-1 p-2">Mô tả sản phẩm</h4>
-            {product.desc.map(line => (
-              <p className="ps-2 py-1">{line}</p>
+            {product.desc.map((line) => (
+              <p className="ps-2 py-1" key={product.desc.indexOf(line)}>
+                {line}
+              </p>
             ))}
-            
           </div>
         </div>
         <div className="col-md-3">
           <div className="text-white p-2">
-            <h4 className="bg-primary text-white my-1 p-2">Có thể bạn sẽ thích</h4>
+            <h4 className="bg-primary text-white my-1 p-2">
+              Có thể bạn sẽ thích
+            </h4>
           </div>
         </div>
       </div>

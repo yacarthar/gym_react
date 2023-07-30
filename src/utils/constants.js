@@ -10,7 +10,7 @@ export const business_info = {
   ],
   contact: {
     hotline: "034.6666.8888",
-    email: "gym-equipment@gmail.com"
+    email: "gym-equipment@gmail.com",
   },
   branch: [
     {
@@ -27,3 +27,7 @@ export const business_info = {
     },
   ],
 };
+
+export const dayOptions = Array.from({ length: 30 }, (_, i) => i + 1);
+export const monthOptions = Array.from({ length: 12 }, (_, i) => i+1);
+export const yearptions = Array.from({ length: 100 }, (_, i) => i + 1950);

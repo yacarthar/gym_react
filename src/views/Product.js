@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { getProductByName } from "../utils/api";
 
 import ProductDetail from "../components/ProductDetail";
-const About = ({}) => {
+const About = () => {
   const params = useParams();
   const [loading, setLoading] = useState(true);
   const [product, setProduct] = useState({});
@@ -14,7 +14,7 @@ const About = ({}) => {
       setLoading(!loading)
     };
     fetchData().catch(console.error);
-  }, []);
+  }, [params]);
   console.log(product);
   return (
     <>{loading ? <h2>loading</h2> : <ProductDetail product={product} />};</>

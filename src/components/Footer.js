@@ -9,39 +9,39 @@ const Footer = () => {
             <h5 className="text-uppercase">{business_info.company_name}</h5>
             <p>{business_info.license}</p>
             <div className="d-flex">
-              <i class="fa-solid fa-location-dot me-3 mt-2"></i>
+              <i className="fa-solid fa-location-dot me-3 mt-2"></i>
               <div>
                 {business_info.branch.map((branch) => (
-                  <>
+                  <div key={branch.id}>
                     <p className="my-1">
                       <b className="text-uppercase">
                         chi nhánh tại {branch.city}
                       </b>
                     </p>
                     <p className="my-1">{branch.street}</p>
-                  </>
+                  </div>
                 ))}
               </div>
             </div>
             <p className="my-1">
-              <i class="fa-solid fa-mobile me-3"></i>
+              <i className="fa-solid fa-mobile me-3"></i>
               <span>Số điện thoại: {business_info.contact.hotline}</span>
             </p>
             <p className="my-1">
-              <i class="fa-solid fa-envelope me-3"></i>
+              <i className="fa-solid fa-envelope me-3"></i>
               <span>Email: {business_info.contact.hotline}</span>
             </p>
           </div>
           <div className="col-xs-12 col-md-3">
             <h5 className="mb-3">Sản phẩm nổi bật</h5>
-            <ul class="ps-0">
-              <li class="list-unstyled py-1">
-                <a class="text-decoration-none text-white" href="#">
+            <ul className="ps-0">
+              <li className="list-unstyled py-1">
+                <a className="text-decoration-none text-white" href="#">
                   Tất cả sản phẩm
                 </a>
               </li>
-              <li class="list-unstyled py-1">
-                <a class="text-decoration-none text-white" href="#">
+              <li className="list-unstyled py-1">
+                <a className="text-decoration-none text-white" href="#">
                   Máy chạy bộ
                 </a>
               </li>
@@ -79,15 +79,23 @@ const Footer = () => {
           </div>
           <div className="col-xs-12 col-md-3">
             <h5 className="mb-4">Theo Dõi Chúng Tôi</h5>
-            <p >
-              <i class="fa-brands fa-facebook me-3 fs-2"></i>
-              <i class="fa-brands fa-twitter me-3 fs-2"></i>
-              <i class="fa-brands fa-youtube me-3 fs-2"></i>
-              <i class="fa-brands fa-instagram me-3 fs-2"></i>
+            <p>
+              <i className="fa-brands fa-facebook me-3 fs-2"></i>
+              <i className="fa-brands fa-twitter me-3 fs-2"></i>
+              <i className="fa-brands fa-youtube me-3 fs-2"></i>
+              <i className="fa-brands fa-instagram me-3 fs-2"></i>
             </p>
             <h5 className="mb-4">Phương thức thanh toán</h5>
-            <img src="/payments.jpg" alt="payment_methods" className="img-fluid mb-3" />
-            <img src="/registered_biz.png" alt="registered_biz" className="img-fluid" />
+            <img
+              src="/payments.jpg"
+              alt="payment_methods"
+              className="img-fluid mb-3"
+            />
+            <img
+              src="/registered_biz.png"
+              alt="registered_biz"
+              className="img-fluid"
+            />
           </div>
         </div>
       </div>
