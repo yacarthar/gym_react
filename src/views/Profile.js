@@ -1,23 +1,53 @@
-import { useAuth0 } from "@auth0/auth0-react";
+import { useState, useRef, useEffect } from "react";
 
-import { dayOptions, monthOptions, yearptions } from "../utils/constants";
-import { useRef } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
+import { dayOptions, monthOptions, yearOptions } from "../utils/constants";
+import { getUser, updateUser } from "../utils/api";
+import { parseDate } from "../utils/datetime";
 
 const Profile = () => {
-  const { user } = useAuth0();
+  const { user, getAccessTokenSilently } = useAuth0();
+  const [userInfo, setUserInfo] = useState({});
+  // getDate(userInfo?.dob)
+  const [dateInput, setDateInput] = useState({
+    day: 1,
+    month: 1,
+    year: 2000,
+  });
+  // const dayInput = useRef(null);
+  // const monthInput = useRef(null);
+  // const yearInput = useRef(null);
   const phoneInput = useRef(null);
-  const dayInput = useRef(null);
-  const monthInput = useRef(null);
-  const yearInput = useRef(null);
   const addressInput = useRef(null);
 
+  useEffect(() => {
+    (async () => {
+      const accessToken = await getAccessTokenSilently();
+      await getUser(accessToken)
+        .then((res) => {
+          setUserInfo(res.data);
+          if (res.data?.dob) {
+            setDateInput({
+              ...dateInput,
+              ...parseDate(res.data.dob),
+            });
+          }
+        })
+        .catch((error) => console.log(error));
+    })();
+  }, []);
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log(phoneInput.current.value);
-    console.log(dayInput.current.value);
-    console.log(monthInput.current.value);
-    console.log(yearInput.current.value);
-    console.log(addressInput.current.value);
+    console.log(dateInput);
+    (async () => {
+      const accessToken = await getAccessTokenSilently();
+      const d = new Date(
+        Date.UTC(dateInput.year, dateInput.month, dateInput.day)
+      );
+      console.log(d);
+      console.log(d.toISOString());
+      await updateUser(accessToken, { dob: d.toISOString() });
+    })();
   };
   return (
     <div className="container" id="profile">
@@ -132,52 +162,40 @@ const Profile = () => {
                   <div className="col-sm-4 text-end p-3">Ngày sinh</div>
                   <div className="col-sm-8 p-3">
                     <div className="d-flex justify-content-between">
-                      <select className="form-select me-2" ref={dayInput}>
-                        {user &&
-                          user.user_metadata &&
-                          user.user_metadata.dob && (
-                            <option
-                              defaultValue={true}
-                              value={user.user_metadata.dob.day}
-                            >
-                              {user.user_metadata.dob.day}
-                            </option>
-                          )}
+                      <select
+                        className="form-select me-2"
+                        value={dateInput.day}
+                        onChange={(e) => {
+                          setDateInput({ ...dateInput, day: e.target.value });
+                        }}
+                      >
                         {dayOptions.map((day) => (
                           <option value={day} key={day}>
                             {day}
                           </option>
                         ))}
                       </select>
-                      <select className="form-select mx-2" ref={monthInput}>
-                        {user &&
-                          user.user_metadata &&
-                          user.user_metadata.dob && (
-                            <option
-                              defaultValue={true}
-                              value={user.user_metadata.dob.month}
-                            >
-                              Tháng {user.user_metadata.dob.month}
-                            </option>
-                          )}
+                      <select
+                        className="form-select mx-2"
+                        value={dateInput.month}
+                        onChange={(e) => {
+                          setDateInput({ ...dateInput, month: e.target.value });
+                        }}
+                      >
                         {monthOptions.map((month) => (
                           <option value={month} key={month}>
-                            Tháng {month}
+                            Tháng {month + 1}
                           </option>
                         ))}
                       </select>
-                      <select className="form-select mx-2" ref={yearInput}>
-                        {user &&
-                          user.user_metadata &&
-                          user.user_metadata.dob && (
-                            <option
-                              defaultValue={true}
-                              value={user.user_metadata.dob.year}
-                            >
-                              {user.user_metadata.dob.year}
-                            </option>
-                          )}
-                        {yearptions.map((year) => (
+                      <select
+                        className="form-select mx-2"
+                        value={dateInput.year}
+                        onChange={(e) => {
+                          setDateInput({ ...dateInput, year: e.target.value });
+                        }}
+                      >
+                        {yearOptions.map((year) => (
                           <option value={year} key={year}>
                             {year}
                           </option>

@@ -3,8 +3,20 @@ import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const Navbar = () => {
-  const { user, isAuthenticated, loginWithPopup, logout } = useAuth0();
+  const {
+    user,
+    isAuthenticated,
+    loginWithPopup,
+    logout,
+    getAccessTokenSilently,
+  } = useAuth0();
   console.log(user);
+  if (user) {
+    (async () => {
+      const token = await getAccessTokenSilently();
+      console.log(token);
+    })();
+  }
   return (
     <nav className="navbar navbar-expand bg-body-tertiary mb-4">
       <div className="container">
@@ -50,11 +62,13 @@ const Navbar = () => {
                       </Link>
                     </li>
                     <li>
-                      <button className="dropdown-item" onClick={() => logout({})}>
+                      <button
+                        className="dropdown-item"
+                        onClick={() => logout({})}
+                      >
                         Logout
                       </button>
                     </li>
-
                   </ul>
                 </div>
               </div>

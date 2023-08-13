@@ -28,6 +28,6 @@ export const business_info = {
   ],
 };
 
-export const dayOptions = Array.from({ length: 30 }, (_, i) => i + 1);
-export const monthOptions = Array.from({ length: 12 }, (_, i) => i+1);
-export const yearptions = Array.from({ length: 100 }, (_, i) => i + 1950);
+export const dayOptions = Array.from({ length: 31 }, (_, i) => i + 1); // 1 to 31
+export const monthOptions = Array.from({ length: 12 }, (_, i) => i); // 0 to 11
+export const yearOptions = Array.from({ length: 100 }, (_, i) => i + 1950); // 1950 to 2049
