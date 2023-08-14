@@ -1,5 +1,5 @@
 import React from "react";
-import { priceFormatter } from "../utils/formatter";
+import { priceFormatter } from "../../utils/formatter";
 
 const DiscountBadge = ({ className, oldPrice, newPrice }) => {
   const discount = priceFormatter(oldPrice - newPrice);

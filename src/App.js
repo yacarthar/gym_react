@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import Home from "./views/Home";
 import Navbar from "./components/Navbar";
@@ -17,7 +17,7 @@ function App() {
         <Route index element={<Home />} />
         <Route path="p/:productName" element={<Product />} />
         <Route
-          path="profile"
+          path="profile/*"
           element={<AuthGuard component={Profile}/>}
         />
       </Routes>

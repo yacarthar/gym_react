@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
-import Price from "../components/Price";
-import DiscountBadge from "../components/DiscountBadge";
+import Price from "../components/helpers/Price";
+import DiscountBadge from "../components/helpers/DiscountBadge";
 
 const ProductCard = ({ className, p }) => {
   return (

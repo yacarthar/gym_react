@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { getProducts } from "../utils/api";
 
 import ProductCard from "../components/ProductCard";
-import Paginate from "../components/Paginate";
+import Paginate from "../components/helpers/Paginate";
 const Home = () => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
