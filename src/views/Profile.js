@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 
 import ProfileAccount from "../components/ProfileAccount";
@@ -26,7 +26,7 @@ const Profile = () => {
   return (
     <div className="container" id="profile">
       <div className="row mb-4">
-        <div className="col-sm-2">
+        <div className="col-sm-2" id="navigator">
           <div className="d-flex mb-3">
             <img
               src={user.picture}
@@ -41,10 +41,21 @@ const Profile = () => {
               </p>
             </div>
           </div>
-          <ul>
-            <li>
-              <i className="fa-solid fa-user"></i>
-              Tài khoản của tôi
+          <ul className="list-unstyled">
+            <li className="py-2">
+              <Link to="/profile" className="text-black text-decoration-none">
+                <i className="fa-solid fa-user me-2"></i>
+                Tài khoản của tôi
+              </Link>
+            </li>
+            <li className="py-2">
+              <Link
+                to="/profile/address"
+                className="text-black text-decoration-none"
+              >
+                <i className="fa-solid fa-house me-2"></i>
+                Địa chỉ
+              </Link>
             </li>
           </ul>
         </div>

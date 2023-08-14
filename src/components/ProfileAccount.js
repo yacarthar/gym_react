@@ -7,26 +7,35 @@ import { parseDate } from "../utils/datetime";
 
 const ProfileAccount = ({ user, userInfo }) => {
   const { getAccessTokenSilently } = useAuth0();
+  const [phone, setPhone] = useState("");
+  const [gender, setGender] = useState("Male");
   const [dateInput, setDateInput] = useState({ day: 1, month: 1, year: 2000 });
   useEffect(() => {
     if (userInfo?.dob) {
       setDateInput(parseDate(userInfo.dob));
     }
+    if (userInfo?.phone_number) {
+      setPhone(userInfo.phone_number);
+    }
+    if (userInfo?.gender) {
+      setGender(userInfo.gender);
+    }
   }, [userInfo]);
   const saveUserInfo = (e) => {
     e.preventDefault();
-    console.log(dateInput);
     (async () => {
       const accessToken = await getAccessTokenSilently();
       const d = new Date(
         Date.UTC(dateInput.year, dateInput.month, dateInput.day)
       );
-      console.log(d);
-      console.log(d.toISOString());
-      await updateUser(accessToken, { dob: d.toISOString() });
+      await updateUser(accessToken, {
+        dob: d.toISOString(),
+        gender: gender,
+        phone_number: phone,
+      });
     })();
   };
-
+  console.log(gender, phone);
   return (
     <div className="col-sm-10 bg-white border p-3">
       <div className="row m-2 border-bottom">
@@ -73,41 +82,49 @@ const ProfileAccount = ({ user, userInfo }) => {
               <div className="col-sm-4 text-end p-3">Số điện thoại</div>
               <div className="col-sm-8 p-3">
                 <input
-                  type="tel"
-                  placeholder="0341112222"
-                  pattern="0[0-9]{2}[0-9]{4}[0-9]{3}"
                   className="form-control"
-                  defaultValue={"0341112222"}
+                  type="tel"
+                  pattern="0[0-9]{2}[0-9]{4}[0-9]{3}"
+                  maxLength={10}
+                  value={phone}
+                  onChange={(e) => {
+                    setPhone(e.target.value);
+                  }}
                 />
               </div>
             </div>
             <div className="row align-items-center" id="gender">
               <div className="col-sm-4 text-end p-3">Giới tính</div>
               <div className="col-sm-8 p-3">
-                <div className="d-flex">
-                  <div className="form-check me-4">
+                <div className="form-check me-4">
+                  <label className="form-check-label me-5" htmlFor="male">
                     <input
                       className="form-check-input"
                       type="radio"
                       name="genderRadio"
+                      value="Male"
                       id="male"
-                      defaultChecked
+                      checked={gender === "Male"}
+                      onChange={(e) => {
+                        setGender(e.target.value);
+                      }}
                     />
-                    <label className="form-check-label" htmlFor="male">
-                      Nam
-                    </label>
-                  </div>
-                  <div className="form-check">
+                    Nam
+                  </label>
+                  <label className="form-check-label" htmlFor="female">
                     <input
                       className="form-check-input"
                       type="radio"
                       name="genderRadio"
+                      value="Female"
                       id="female"
+                      checked={gender === "Female"}
+                      onChange={(e) => {
+                        setGender(e.target.value);
+                      }}
                     />
-                    <label className="form-check-label" htmlFor="female">
-                      Nữ
-                    </label>
-                  </div>
+                    Nữ
+                  </label>
                 </div>
               </div>
             </div>
