@@ -37,7 +37,7 @@ const ProfileAccount = ({ user, userInfo }) => {
   };
   console.log(gender, phone);
   return (
-    <div className="col-sm-10 bg-white border p-3">
+    <>
       <div className="row m-2 border-bottom">
         <h5>Hồ sơ của tôi</h5>
         <p>Quản lý thông tin hồ sơ để bảo mật tài khoản</p>
@@ -203,7 +203,7 @@ const ProfileAccount = ({ user, userInfo }) => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

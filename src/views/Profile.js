@@ -5,6 +5,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 import ProfileAccount from "../components/ProfileAccount";
 import ProfileAddress from "../components/ProfileAddress";
+import ProfilePayment from "../components/ProfilePayment";
 import { getUser } from "../utils/api";
 
 const Profile = () => {
@@ -26,7 +27,7 @@ const Profile = () => {
   return (
     <div className="container" id="profile">
       <div className="row mb-4">
-        <div className="col-sm-2" id="navigator">
+        <div className="col-sm-3" id="navigator">
           <div className="d-flex mb-3">
             <img
               src={user.picture}
@@ -57,19 +58,34 @@ const Profile = () => {
                 Địa chỉ
               </Link>
             </li>
+            <li className="py-2">
+              <Link
+                to="/profile/payment"
+                className="text-black text-decoration-none"
+              >
+                <i className="fa-solid fa-credit-card me-2"></i>
+                Phương thức thanh toán
+              </Link>
+            </li>
           </ul>
         </div>
-        <Routes>
-          <Route
-            index
-            // path="/account"
-            element={<ProfileAccount user={user} userInfo={userInfo} />}
-          />
-          <Route
-            path="/address"
-            element={<ProfileAddress userInfo={userInfo} />}
-          />
-        </Routes>
+        <div className="col-sm-9 bg-white border p-3" style={{minHeight: "50vh"}}>
+          <Routes>
+            <Route
+              index
+              // path="/account"
+              element={<ProfileAccount user={user} userInfo={userInfo} />}
+            />
+            <Route
+              path="/address"
+              element={<ProfileAddress userInfo={userInfo} />}
+            />
+            <Route
+              path="/payment"
+              element={<ProfilePayment userInfo={userInfo} />}
+            />
+          </Routes>
+        </div>
       </div>
     </div>
   );

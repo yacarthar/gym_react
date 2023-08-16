@@ -89,7 +89,7 @@ const ProfileAddress = ({ userInfo }) => {
     if (userInfo?.address?.street) setStreet(userInfo.address.street);
   }, [userInfo]);
   return (
-    <div className="col-sm-10 bg-white border p-3">
+    <>
       <div className="row m-2 border-bottom">
         <h5>Địa chỉ của tôi</h5>
         <p>Địa chỉ giao hàng</p>
@@ -140,7 +140,7 @@ const ProfileAddress = ({ userInfo }) => {
             <div className="col-sm-3 text-end p-3">Địa chỉ cụ thể</div>
             <div className="col-sm-9 p-3">
               <input
-                type="tex"
+                type="text"
                 placeholder="Số nhà / Tòa nhà / Đường"
                 className="form-control"
                 value={street}
@@ -160,7 +160,7 @@ const ProfileAddress = ({ userInfo }) => {
           </div>
         </form>
       </div>
-    </div>
+    </>
   );
 };
 
