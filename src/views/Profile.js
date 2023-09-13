@@ -3,9 +3,9 @@ import { useState, useEffect } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 
-import ProfileAccount from "../components/ProfileAccount";
-import ProfileAddress from "../components/ProfileAddress";
-import ProfilePayment from "../components/ProfilePayment";
+import ProfileAccount from "../components/profile/ProfileAccount";
+import ProfileAddress from "../components/profile/ProfileAddress";
+import ProfilePayment from "../components/profile/ProfilePayment";
 import { getUser } from "../utils/api";
 
 const Profile = () => {

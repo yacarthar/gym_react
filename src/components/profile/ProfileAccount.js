@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 
-import { dayOptions, monthOptions, yearOptions } from "../utils/constants";
-import { updateUser } from "../utils/api";
-import { parseDate } from "../utils/datetime";
+import { dayOptions, monthOptions, yearOptions } from "../../utils/constants";
+import { updateUser } from "../../utils/api";
+import { parseDate } from "../../utils/datetime";
 
 const ProfileAccount = ({ user, userInfo }) => {
   const { getAccessTokenSilently } = useAuth0();

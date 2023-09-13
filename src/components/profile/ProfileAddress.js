@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 
 import { useAuth0 } from "@auth0/auth0-react";
-import { updateUser } from "../utils/api";
-import addressVN from "../utils/address_vn.json";
+import { updateUser } from "../../utils/api";
+import addressVN from "../../utils/address_vn.json";
 const ProfileAddress = ({ userInfo }) => {
   const { getAccessTokenSilently } = useAuth0();
   const initCity = addressVN[0];
