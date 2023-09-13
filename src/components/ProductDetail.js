@@ -31,10 +31,10 @@ const ProductDetail = ({ product }) => {
         <div className="col-lg-5 col-sm-12">
           <div id="carouselExample" className="carousel slide mb-4">
             <div className="carousel-inner">
-              {product.images.map((imgUrl) => (
+              {product.images.map((imgUrl, index) => (
                 <div
                   className="carousel-item active bg-dark"
-                  key={product.images.indexOf(imgUrl)}
+                  key={index}
                 >
                   <img
                     src={imgUrl}
@@ -175,8 +175,8 @@ const ProductDetail = ({ product }) => {
         <div className="col-md-9">
           <div className="p-2 mb-3">
             <h4 className="bg-primary text-white my-1 p-2">Mô tả sản phẩm</h4>
-            {product.desc.map((line) => (
-              <p className="ps-2 py-1" key={product.desc.indexOf(line)}>
+            {product.desc.map((line, index) => (
+              <p className="ps-2 py-1" key={index}>
                 {line}
               </p>
             ))}

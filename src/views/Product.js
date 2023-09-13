@@ -11,7 +11,7 @@ const About = () => {
     const fetchData = async () => {
       const res = await getProductByName(params.productName);
       setProduct(res.data);
-      setLoading(!loading)
+      setLoading(false)
     };
     fetchData().catch(console.error);
   }, [params]);

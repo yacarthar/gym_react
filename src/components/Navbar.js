@@ -1,9 +1,8 @@
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
-import { fetchCart, selectAll, selectTotal } from "../reducers/cart";
+import { selectAll, selectTotal } from "../reducers/cart";
 // import { setAxiosTokenInterceptor } from "../utils/api";
 
 const Navbar = () => {
@@ -12,21 +11,8 @@ const Navbar = () => {
     isAuthenticated,
     loginWithPopup,
     logout,
-    getAccessTokenSilently,
   } = useAuth0();
   console.log("user: ", user);
-
-  const dispatch = useDispatch();
-  useEffect(() => {
-    (async () => {
-      if (isAuthenticated) {
-        const accessToken = await getAccessTokenSilently();
-        console.log(accessToken);
-        // setAxiosTokenInterceptor(accessToken);
-        dispatch(fetchCart(accessToken));
-      }
-    })();
-  }, [isAuthenticated]);
 
   const itemsQuantity = useSelector(selectTotal);
   const allCartItems = useSelector(selectAll);

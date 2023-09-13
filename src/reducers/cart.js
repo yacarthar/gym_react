@@ -4,7 +4,7 @@ import {
   createAsyncThunk,
 } from "@reduxjs/toolkit";
 
-import { getCart, updateCart } from "../utils/api";
+import { getCart } from "../utils/api";
 
 const cartAdapter = createEntityAdapter({
   sortComparer: (a, b) => a.updatedAt > b.updatedAt,
@@ -16,15 +16,6 @@ export const fetchCart = createAsyncThunk("fetch", async (token) => {
   console.log(res.data)
   return res.data;
 });
-
-export const saveCart = createAsyncThunk(
-  "save",
-  async (token, cartData) => {
-    const res = await updateCart(token, cartData);
-    console.log(res.data)
-    return res.data;
-  }
-);
 
 // slice
 const cartSlice = createSlice({
@@ -42,10 +33,6 @@ const cartSlice = createSlice({
       .addCase(fetchCart.fulfilled, (state, action)=> {
         cartAdapter.setAll(state, action.payload)
       })
-      .addCase(saveCart.pending, (state, action) => {state.status = "loading"})
-      // .addCase(saveCart.fulfilled, (state, action)=> {
-      //   cartAdapter.setAll(state, action.payload)
-      // })
   }
 });
 
