@@ -1,7 +1,29 @@
-import React from "react";
+import { useRef } from "react";
+import { useDispatch } from "react-redux";
+import { useAuth0 } from "@auth0/auth0-react";
+
+import { update } from "../reducers/cart";
 import { priceFormatter } from "../utils/formatter";
 import { business_info } from "../utils/constants";
 const ProductDetail = ({ product }) => {
+  const quantityInput = useRef(1);
+  const dispatch = useDispatch();
+  const { isAuthenticated, loginWithPopup } = useAuth0();
+
+  const addItemToCart = (e) => {
+    e.preventDefault();
+    const selectedProduct = {
+      id: product.id,
+      quantity: parseInt(quantityInput.current.value),
+      updatedAt: new Date().getTime(),
+    };
+    console.log(selectedProduct);
+    if (isAuthenticated) {
+      dispatch(update(selectedProduct));
+    } else {
+      loginWithPopup({});
+    }
+  };
   return (
     <div className="container">
       {/* product intro */}
@@ -74,24 +96,30 @@ const ProductDetail = ({ product }) => {
             </ul>
           </div>
           <div className="mb-2">
-            <form action="">
+            <form onSubmit={addItemToCart}>
               <label htmlFor="quantityInput" className="form-label">
                 Số lượng:
               </label>
               <input
                 type="number"
                 className="form-control w-50"
-                placeholder="1"
+                defaultValue={1}
                 min={1}
+                ref={quantityInput}
+                required
               />
+              <button
+                className="btn btn-danger text-center text-white mt-2 w-100"
+                type="submit"
+              >
+                <h5>MUA NGAY, GIAO TẬN NƠI</h5>
+                <p className="text-nowrap m-1" style={{ fontSize: "0.8rem" }}>
+                  (XEM HÀNG, KHÔNG MUA KHÔNG SAO)
+                </p>
+              </button>
             </form>
           </div>
-          <button className="btn btn-danger text-center text-white mb-2 w-100">
-            <h5>MUA NGAY, GIAO TẬN NƠI</h5>
-            <p className="text-nowrap m-1" style={{ fontSize: "0.8rem" }}>
-              (XEM HÀNG, KHÔNG MUA KHÔNG SAO)
-            </p>
-          </button>
+
           <button className="btn btn-primary text-center text-white mb-2 w-100">
             <h5>TRẢ GÓP QUA THẺ</h5>
             <p className="text-nowrap m-1" style={{ fontSize: "0.8rem" }}>

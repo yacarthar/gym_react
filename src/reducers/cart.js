@@ -4,7 +4,7 @@ import {
   createAsyncThunk,
 } from "@reduxjs/toolkit";
 
-import { getCart, saveCart } from "../utils/api";
+import { getCart, updateCart } from "../utils/api";
 
 const cartAdapter = createEntityAdapter({
   sortComparer: (a, b) => a.updatedAt > b.updatedAt,
@@ -20,7 +20,7 @@ export const fetchCart = createAsyncThunk("fetch", async (token) => {
 export const saveCart = createAsyncThunk(
   "save",
   async (token, cartData) => {
-    const res = await saveCart(token, cartData);
+    const res = await updateCart(token, cartData);
     console.log(res.data)
     return res.data;
   }
@@ -51,10 +51,10 @@ const cartSlice = createSlice({
 
 // selectors
 export const {
-  selectIds: selectIds,
-  selectAll: selectItems,
+  selectIds,
+  selectAll,
   selectById: selectItemById,
-  selectTotal: selectQuantity,
+  selectTotal,
 } = cartAdapter.getSelectors((state) => state.cart);
 
 export const { update, remove } = cartSlice.actions;

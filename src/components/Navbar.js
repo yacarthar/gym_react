@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { fetchCart, selectQuantity, selectItems } from "../reducers/cart";
+import { fetchCart, selectAll, selectTotal } from "../reducers/cart";
 // import { setAxiosTokenInterceptor } from "../utils/api";
 
 const Navbar = () => {
@@ -28,9 +28,9 @@ const Navbar = () => {
     })();
   }, [isAuthenticated]);
 
-  const itemsQuantity = useSelector(selectQuantity);
-  const dmzItem = useSelector(selectItems);
-  console.log("dmzItem: ", dmzItem);
+  const itemsQuantity = useSelector(selectTotal);
+  const allCartItems = useSelector(selectAll);
+  console.log("allItem: ", allCartItems);
 
   return (
     <nav className="navbar navbar-expand bg-body-tertiary mb-4">
@@ -74,7 +74,7 @@ const Navbar = () => {
                   >
                     <img
                       src={user.picture}
-                      alt="user-picture"
+                      alt="user"
                       className="img-fluid rounded-circle w-25 me-2"
                     />
                     {user.name}

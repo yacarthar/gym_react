@@ -15,7 +15,7 @@ const About = () => {
     };
     fetchData().catch(console.error);
   }, [params]);
-  console.log(product);
+  console.log("product: ", product);
   return (
     <>{loading ? <h2>loading</h2> : <ProductDetail product={product} />};</>
   );

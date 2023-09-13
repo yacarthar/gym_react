@@ -37,7 +37,7 @@ export const getCart = async (accessToken) =>
     },
   });
 
-export const saveCart = async (accessToken, body) =>
+export const updateCart = async (accessToken, body) =>
   await axios.put(`${apiUrl}/u/cart/`, body, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
