@@ -1,6 +1,10 @@
-import React from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
+import { useSelector, useDispatch } from "react-redux";
+
+import { fetchCart, selectQuantity, selectItems } from "../reducers/cart";
+// import { setAxiosTokenInterceptor } from "../utils/api";
 
 const Navbar = () => {
   const {
@@ -10,13 +14,24 @@ const Navbar = () => {
     logout,
     getAccessTokenSilently,
   } = useAuth0();
-  console.log(user);
-  if (user) {
+  console.log("user: ", user);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
     (async () => {
-      const token = await getAccessTokenSilently();
-      console.log(token);
+      if (isAuthenticated) {
+        const accessToken = await getAccessTokenSilently();
+        console.log(accessToken);
+        // setAxiosTokenInterceptor(accessToken);
+        dispatch(fetchCart(accessToken));
+      }
     })();
-  }
+  }, [isAuthenticated]);
+
+  const itemsQuantity = useSelector(selectQuantity);
+  const dmzItem = useSelector(selectItems);
+  console.log("dmzItem: ", dmzItem);
+
   return (
     <nav className="navbar navbar-expand bg-body-tertiary mb-4">
       <div className="container">
@@ -37,6 +52,15 @@ const Navbar = () => {
             >
               Login
             </button>
+          )}
+          {isAuthenticated && (
+            <Link className="navbar-brand" to="/cart">
+              <button className="btn btn-outline-primary d-flex align-items-center">
+                <i className="fas fa-shopping-bag"></i>
+                <span className="mx-2 d-md-block d-none">Giỏ hàng</span>
+                <span className="">{itemsQuantity}</span>
+              </button>
+            </Link>
           )}
           {isAuthenticated && (
             <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
