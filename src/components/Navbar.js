@@ -6,17 +6,12 @@ import { selectAll, selectTotal } from "../reducers/cart";
 // import { setAxiosTokenInterceptor } from "../utils/api";
 
 const Navbar = () => {
-  const {
-    user,
-    isAuthenticated,
-    loginWithPopup,
-    logout,
-  } = useAuth0();
+  const { user, isAuthenticated, loginWithPopup, logout } = useAuth0();
   console.log("user: ", user);
 
   const itemsQuantity = useSelector(selectTotal);
-  const allCartItems = useSelector(selectAll);
-  console.log("allItem: ", allCartItems);
+  const cartItemList = useSelector(selectAll);
+  console.log("cartItemList: ", cartItemList);
 
   return (
     <nav className="navbar navbar-expand bg-body-tertiary mb-4">

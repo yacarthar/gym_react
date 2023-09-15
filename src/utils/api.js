@@ -11,7 +11,10 @@ const apiUrl = process.env.REACT_APP_API_URL;
 //   });
 // };
 
-export const getProducts = async () => await axios.get(`${apiUrl}/p/`, {});
+export const getProducts = async (ids=null) => {
+  const params = ids? {ids: ids}: {}
+  return await axios.get(`${apiUrl}/p/`, {params});
+}
 
 export const getProductByName = async (name) =>
   await axios.get(`${apiUrl}/p/${name}`, { params: { query_by: "name" } });

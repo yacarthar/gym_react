@@ -38,10 +38,11 @@ const cartSlice = createSlice({
 
 // selectors
 export const {
-  selectIds,
-  selectAll,
-  selectById: selectItemById,
-  selectTotal,
+  selectIds, // ids put to param to get productInfo | Cart
+  selectAll, // list all product put to body to update cart | ProductDetail
+  selectById, // product | CartItem
+  selectTotal, // number in card | navbar
+  selectEntities // cart items map | Cart
 } = cartAdapter.getSelectors((state) => state.cart);
 
 export const { update, remove } = cartSlice.actions;

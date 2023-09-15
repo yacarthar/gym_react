@@ -11,6 +11,7 @@ import Navbar from "./components/Navbar";
 import Product from "./views/Product";
 import Profile from "./views/Profile";
 import Footer from "./components/Footer";
+import Cart from "./views/Cart";
 import AuthGuard from "./components/AuthGuard";
 import "./App.css";
 
@@ -49,6 +50,8 @@ function App() {
         <Route index element={<Home />} />
         <Route path="p/:productName" element={<Product />} />
         <Route path="profile/*" element={<AuthGuard component={Profile} />} />
+        {/* <Route path="cart" element={<Cart />} /> */}
+        <Route path="cart" element={<AuthGuard component={Cart} />} />
       </Routes>
       <Footer />
     </>
